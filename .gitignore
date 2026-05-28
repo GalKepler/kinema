@@ -1,0 +1,38 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.egg-info/
+*.egg
+dist/
+build/
+.eggs/
+.mypy_cache/
+.ruff_cache/
+.pytest_cache/
+.coverage
+htmlcov/
+*.prof
+
+# Environments
+.venv/
+venv/
+env/
+
+# Project data
+data/
+*.mp4
+*.mov
+*.parquet
+
+# Notebooks
+notebooks/**/outputs/
+*.ipynb_checkpoints/
+
+# Notes
+NOTES.md
+
+# OS
+.DS_Store
+Thumbs.db

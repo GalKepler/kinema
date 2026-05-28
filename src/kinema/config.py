@@ -1,0 +1,1 @@
+"""Pipeline configuration via Pydantic."""
