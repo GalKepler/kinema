@@ -14,6 +14,7 @@ dependencies = [
     "numpy>=1.26",
     "pandas>=3.0.3",
     "tqdm>=4.66",
+    "scipy>=1.13",
 ]
 
 [project.optional-dependencies]
@@ -64,5 +65,5 @@ dev = [
 ]
 
 [[tool.mypy.overrides]]
-module = ["cv2", "cv2.*", "mediapipe", "mediapipe.*", "pyarrow", "pyarrow.*", "tqdm", "tqdm.*"]
+module = ["cv2", "cv2.*", "mediapipe", "mediapipe.*", "pyarrow", "pyarrow.*", "tqdm", "tqdm.*", "scipy", "scipy.*"]
 ignore_missing_imports = true
