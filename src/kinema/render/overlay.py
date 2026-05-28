@@ -1,6 +1,7 @@
 """Skeleton overlay rendering: keypoints → overlay.mp4."""
 
 import logging
+import math
 from collections import deque
 from pathlib import Path
 from typing import Any
@@ -121,7 +122,8 @@ def render_overlay(
                 com_xy = com_by_frame.get(frame_idx)
                 if com_xy is not None:
                     cx, cy = com_xy
-                    com_trail.append((int(cx * w), int(cy * h)))
+                    if not (math.isnan(cx) or math.isnan(cy)):
+                        com_trail.append((int(cx * w), int(cy * h)))
 
                 trail_list = list(com_trail)
                 n = len(trail_list)
