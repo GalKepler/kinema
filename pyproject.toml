@@ -12,6 +12,7 @@ dependencies = [
     "pydantic>=2.6",
     "matplotlib>=3.8",
     "numpy>=1.26",
+    "pandas>=3.0.3",
 ]
 
 [project.optional-dependencies]
@@ -48,3 +49,8 @@ files = ["src"]
 [tool.pytest.ini_options]
 testpaths = ["tests"]
 pythonpath = ["src"]
+
+[dependency-groups]
+dev = [
+    "pandas-stubs>=3.0.0.260204",
+]
