@@ -13,6 +13,7 @@ dependencies = [
     "matplotlib>=3.8",
     "numpy>=1.26",
     "pandas>=3.0.3",
+    "tqdm>=4.66",
 ]
 
 [project.optional-dependencies]
@@ -45,6 +46,7 @@ select = ["E", "F", "I", "N", "UP", "B", "SIM", "RUF"]
 strict = true
 python_version = "3.13"
 files = ["src"]
+ignore_missing_imports = true
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
@@ -52,5 +54,15 @@ pythonpath = ["src"]
 
 [dependency-groups]
 dev = [
+    "ipykernel>=7.2.0",
+    "jupyter>=1.1.1",
+    "nbconvert>=7.17.1",
     "pandas-stubs>=3.0.0.260204",
+    "pytest>=9.0.3",
+    "pytest-cov>=7.1.0",
+    "types-tqdm>=4.66",
 ]
+
+[[tool.mypy.overrides]]
+module = ["cv2", "cv2.*", "mediapipe", "mediapipe.*", "pyarrow", "pyarrow.*", "tqdm", "tqdm.*"]
+ignore_missing_imports = true

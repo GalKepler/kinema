@@ -13,6 +13,7 @@ from pathlib import Path
 
 import cv2
 import numpy as np
+import numpy.typing as npt
 
 logger = logging.getLogger(__name__)
 
@@ -141,7 +142,7 @@ def probe_video(path: Path) -> VideoMetadata:
     )
 
 
-def iter_frames(path: Path) -> Iterator[tuple[int, float, np.ndarray]]:
+def iter_frames(path: Path) -> Iterator[tuple[int, float, npt.NDArray[np.uint8]]]:
     """Yield display-correct RGB frames decoded from a video file.
 
     Each frame is rotated to display orientation before being returned, so
@@ -154,7 +155,7 @@ def iter_frames(path: Path) -> Iterator[tuple[int, float, np.ndarray]]:
 
     Yields
     ------
-    tuple[int, float, np.ndarray]
+    tuple[int, float, npt.NDArray[np.uint8]]
         ``(frame_idx, timestamp_sec, frame_rgb)`` where ``frame_rgb`` has
         shape ``(height, width, 3)`` in display orientation, dtype ``uint8``.
     """
@@ -173,7 +174,7 @@ def iter_frames(path: Path) -> Iterator[tuple[int, float, np.ndarray]]:
                 break
             if rotate_code is not None:
                 frame = cv2.rotate(frame, rotate_code)
-            frame_rgb: np.ndarray = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+            frame_rgb: npt.NDArray[np.uint8] = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
             yield frame_idx, frame_idx / meta.fps, frame_rgb
             frame_idx += 1
     finally:

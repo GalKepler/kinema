@@ -81,6 +81,26 @@ def synthetic_video(tmp_path_factory: pytest.TempPathFactory) -> Path:
 
 
 @pytest.fixture(scope="session")
+def synthetic_video_1frame(tmp_path_factory: pytest.TempPathFactory) -> Path:
+    """Session-cached 320x240 single-frame video for edge-case tests."""
+    out = tmp_path_factory.mktemp("video_1f") / "synthetic_1frame.mp4"
+    subprocess.run(
+        [
+            "ffmpeg", "-y",
+            "-f", "lavfi",
+            "-i", "color=c=blue:s=320x240:r=30",
+            "-frames:v", "1",
+            "-c:v", "libx264",
+            "-pix_fmt", "yuv420p",
+            str(out),
+        ],
+        check=True,
+        capture_output=True,
+    )
+    return out
+
+
+@pytest.fixture(scope="session")
 def synthetic_video_rotated(tmp_path_factory: pytest.TempPathFactory) -> Path:
     """Session-cached 320x240 stored, 90° CW rotation matrix → display 240x320.
 

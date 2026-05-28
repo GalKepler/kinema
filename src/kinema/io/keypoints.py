@@ -115,7 +115,7 @@ def _validate(df: pd.DataFrame) -> None:
 
     name_dtype = df["landmark_name"].dtype
     is_acceptable_name_dtype = isinstance(
-        name_dtype, (pd.StringDtype, pd.CategoricalDtype)
+        name_dtype, pd.StringDtype | pd.CategoricalDtype
     ) or str(name_dtype) == "object"
     if not is_acceptable_name_dtype:
         raise SchemaError(
@@ -148,7 +148,7 @@ def write_keypoints(df: pd.DataFrame, path: Path) -> None:
     """
     _validate(df)
     table = pa.Table.from_pandas(df, schema=KEYPOINTS_SCHEMA, preserve_index=False)
-    pq.write_table(table, path, compression="snappy")  # type: ignore[no-untyped-call]
+    pq.write_table(table, path, compression="snappy")
 
 
 def read_keypoints(path: Path) -> pd.DataFrame:
@@ -170,7 +170,7 @@ def read_keypoints(path: Path) -> pd.DataFrame:
     SchemaError
         If the file does not conform to KEYPOINTS_SCHEMA.
     """
-    table = pq.read_table(path, schema=KEYPOINTS_SCHEMA)  # type: ignore[no-untyped-call]
+    table = pq.read_table(path, schema=KEYPOINTS_SCHEMA)
     df: pd.DataFrame = table.to_pandas(categories=["landmark_name"])
     _validate(df)
     return df
